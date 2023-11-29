@@ -372,7 +372,8 @@ int main(int argc, char* argv[])
                     if (argc == 7)
                     {
                         uint16_t dtycyc = 2045 * (atoi(argv[6]) / 100);
-                        if (dtycyc >= 0 && dtycyc <= 100)
+                        printf("\n%d", dtycyc);
+                        if (dtycyc >= 0 && dtycyc <= 2048)
                         {
                             // printf("Duty cycle: %d\n", dtycyc);     // REMOVE FOR FINAL
                             setDutyCycle(dtycyc, field);
