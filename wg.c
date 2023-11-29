@@ -371,7 +371,7 @@ int main(int argc, char* argv[])
 
                     if (argc == 7)
                     {
-                        uint16_t dtycyc = 2045 * (atoi(argv[6]) / 100);
+                        uint16_t dtycyc = 2045 / (100 / atoi(argv[6]));
                         printf("\n%d", dtycyc);
                         if (dtycyc >= 0 && dtycyc <= 2048)
                         {
