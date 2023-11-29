@@ -22,7 +22,7 @@
 // field flags
 #define FIELD_A 0
 #define FIELD_B 1
-#define FIELD_ERR -1
+#define FIELD_ERR -113
 
 // mode defines for legibility
 #define MODE_DC 0
@@ -151,9 +151,8 @@ int main(int argc, char* argv[])
                 setMode(MODE_SINE, field);
 
                 uint32_t frequency = atoi(argv[3]);
-                if (frequency >= 1) // && frequency <= 2500)
+                if (frequency >= 1)
                 {
-                    // printf("Frequency: %d\n", frequency);   // REMOVE FOR FINAL
                     if (field == FIELD_A)
                         setFreqA(frequency);
                     else
@@ -169,9 +168,8 @@ int main(int argc, char* argv[])
                 }
 
                 uint16_t amplitude = atof(argv[4]) * 10;
-                if (amplitude >= 0) // && amplitude <= 2500)
+                if (amplitude >= 0)
                 {
-                    // printf("Amplitude: %d\n", amplitude);   // REMOVE FOR FINAL
                     setAmplitude(amplitude, field);
                 }
                 else
@@ -182,8 +180,8 @@ int main(int argc, char* argv[])
 
                 if (argc >= 6)
                 {
-                    int16_t offset = atof(argv[5]) * 10000;
-                    if (offset >= -25000 && offset <= 25000)
+                    int16_t offset = atof(argv[5]) * 100000;
+                    if (offset >= -250000 && offset <= 250000)
                     {
                         // printf("Offset: %d\n", offset);     // REMOVE FOR FINAL
                         setOffset(offset, field);
