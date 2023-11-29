@@ -180,8 +180,8 @@ int main(int argc, char* argv[])
 
                 if (argc >= 6)
                 {
-                    int16_t offset = atof(argv[5]) * 100000;
-                    if (offset >= -250000 && offset <= 250000)
+                    int16_t offset = atof(argv[5]) * 25000;
+                    if (offset >= -62500 && offset <= 62500)
                     {
                         // printf("Offset: %d\n", offset);     // REMOVE FOR FINAL
                         setOffset(offset, field);
