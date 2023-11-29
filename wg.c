@@ -371,8 +371,8 @@ int main(int argc, char* argv[])
 
                     if (argc == 7)
                     {
-                        uint16_t dtycyc = 2045 * (uint16_t)(atoi(argv[6]) / 100);
-                        printf("\n%d", dtycyc);
+                        uint16_t dtycyc = 2045 * (atoi(argv[6]) / 100);
+                        printf("%d\n", dtycyc);
                         if (dtycyc >= 0 && dtycyc <= 2048)
                         {
                             // printf("Duty cycle: %d\n", dtycyc);     // REMOVE FOR FINAL
