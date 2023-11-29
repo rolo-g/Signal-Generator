@@ -1,9 +1,5 @@
-obj-m += wg_driver.o
-
-DIR=/lib/modules/$(shell uname -r)/build
-
 all:
-        make -C $(DIR) M=$(shell pwd) modules
+	gcc -o wg wg.c wg_ip.c
 
 clean:
-        make -C $(DIR) M=$(shell pwd) clean
+	rm -f wg
