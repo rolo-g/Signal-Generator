@@ -27,10 +27,36 @@
 #include <linux/kobject.h>    // kobject, kobject_atribute,
                               // kobject_create_and_add, kobject_put
 #include <asm/io.h>           // iowrite, ioread, ioremap_nocache (platform specific)
-#include "../address_map.h"   // overall memory map
-#include "wg_regs.h"          // register offsets in WG IP
 
 
+
+#define AXI4_LITE_BASE         0x43C00000
+#define WG_BASE_OFFSET         0x00020000
+// register offsets
+#define OFS_MODE_REG 0
+#define OFS_RUN_REG 1
+#define OFS_FREQ_A_REG 2
+#define OFS_FREQ_B_REG 3
+#define OFS_OFFSET_REG 4
+#define OFS_AMPLITUDE_REG 5
+#define OFS_DTYCYC_REG 6
+#define OFS_CYCLES_REG 7
+
+// field offsets
+#define OFS_MODE_A_FIELD 0
+#define OFS_MODE_B_FIELD 3
+#define OFS_RUN_A_FIELD 0
+#define OFS_RUN_B_FIELD 1
+#define OFS_OFFSET_A_FIELD 0
+#define OFS_OFFSET_B_FIELD 16
+#define OFS_AMPL_A_FIELD 0
+#define OFS_AMPL_B_FIELD 16
+#define OFS_DC_A_FIELD 0
+#define OFS_DC_B_FIELD 16
+#define OFS_CYCLES_A_FIELD 0
+#define OFS_CYCLES_B_FIELD 16
+
+#define SPAN_IN_BYTES 32
 //-----------------------------------------------------------------------------
 // Kernel module information
 //-----------------------------------------------------------------------------
@@ -49,15 +75,7 @@ static unsigned int *base = NULL;
 // Subroutines
 //-----------------------------------------------------------------------------
 
-void setMode(uint8_t mode, bool field)
-{   
-    uint8_t shift = field ? OFS_MODE_B_FIELD : OFS_MODE_A_FIELD;
-	unsigned int value = ioread32(base+OFS_MODE_REG);
-	iowrite32(value &= ~(0x7 << shift), base+OFS_MODE_REG);
-	iowrite32(value |= (mode << shift), base+OFS_MODE_REG);
-}
 
-void getMode(uint8_t mode)
 
 
 void setRunA(bool running)
@@ -73,120 +91,6 @@ bool getRunA()
     return (value >> OFS_RUN_A_FIELD) & 1;
 }
 
-void setRunB(bool running)
-{
-	uint8_t value = ioread32(base+OFS_RUN_REG);
-	iowrite32( value & ~(0x1 << OFS_RUN_B_FIELD), base+OFS_RUN_REG);
-	iowrite32( value | (running << OFS_RUN_B_FIELD), base+OFS_RUN_REG);
-}
-
-bool getRunB()
-{
-    uint8_t value = ioread32(base + OFS_RUN_REG);
-    return (value >> OFS_RUN_B_FIELD) & 1;
-}
-
-
-void setFreqA(uint32_t frequency)
-{
-    iowrite32(frequency, base+OFS_FREQ_A_REG);
-}
-
-uint32_t getFreqA()
-{
-	return ioread32(base+OFS_FREQ_A_REG);
-}
-
-void setFreqB(uint32_t frequency)
-{
-    iowrite32(frequency, base+OFS_FREQ_B_REG);
-}
-
-uint32_t getFreqB()
-{
-	return ioread32(base+OFS_FREQ_B_REG);
-}
-
-
-
-void setOffsetA(int16_t offset)
-{
-	unsigned int value = ioread32(base+OFS_OFFSET_REG);
-	iowrite32(value &= ~(0xFFFF << OFS_OFFSET_A_FIELD), base+OFS_OFFSET_REG);
-	iowrite32(value |= (offset << OFS_OFFSET_A_FIELD), base+OFS_OFFSET_REG);
-}
-
-int16_t getOffsetA()
-{
-    unsigned int value = ioread32(base + OFS_OFFSET_REG);
-    return (value >> OFS_OFFSET_A_FIELD) & 0xFFFF);
-}
-
-void setOffsetB(int16_t offset)
-{
-	unsigned int value = ioread32(base+OFS_OFFSET_REG);
-	iowrite32(value &= ~(0xFFFF << OFS_OFFSET_A_FIELD), base+OFS_OFFSET_REG);
-	iowrite32(value |= (offset << OFS_OFFSET_A_FIELD), base+OFS_OFFSET_REG);
-}
-
-int16_t getOffsetB()
-{
-    unsigned int value = ioread32(base + OFS_OFFSET_REG);
-    return (value >> OFS_OFFSET_B_FIELD) & 0xFFFF);
-}
-
-
-	
-
-void setAmplitudeA(int16_t amplitude)
-{
-	unsigned int value = ioread32(base+OFS_AMPLITUDE_REG);
-	iowrite32(value &= ~(0xFFFF << OFS_AMPL_A_FIELD), base+OFS_OFFSET_REG);
-	iowrite32(value |= (amplitude << OFS_AMPL_A_FIELD), base+OFS_OFFSET_REG);
-}
-
-int16_t getAmplitudeA()
-{
-	unsigned int value = ioread32(base+OFS_AMPLITUDE_REG);
-	return (value >> OFS_AMPL_A_FIELD) & 0xFFFF);
-}
-
-void setAmplitudeB(int16_t amplitude)
-{
-	unsigned int value = ioread32(base+OFS_AMPLITUDE_REG);
-	iowrite32(value &= ~(0xFFFF << OFS_AMPL_B_FIELD), base+OFS_OFFSET_REG);
-	iowrite32(value |= (amplitude << OFS_AMPL_B_FIELD), base+OFS_OFFSET_REG);
-}
-
-int16_t getAmplitudeB()
-{
-	unsigned int value = ioread32(base+OFS_AMPLITUDE_REG);
-	return (value >> OFS_AMPL_B_FIELD) & 0xFFFF);
-}
-
-void setDutyCycleA(uint16_t dtycyc)
-{
-	unsigned int value = ioread32(base+OFS_DTYCYC_REG);
-	iowrite32(value &= ~(0xFFFF << OFS_DC_A_FIELD), base+OFS_DTYCYC_REG);
-	iowrite32(value &= |= (dtycyc << OFS_DC_A_FIELD), base+OFS_DTYCYC_REG);
-}
-uint16_t getDutyCycleA()
-{
-	unsigned int value = ioread32(base+OFS_DTYCYC_REG);
-	return (value >> OFS_DC_A_FIELD) & 0xFFFF);
-}
-
-void setDutyCycleB(uint16_t dtycyc)
-{
-	unsigned int value = ioread32(base+OFS_DTYCYC_REG);
-	iowrite32(value &= ~(0xFFFF << OFS_DC_B_FIELD), base+OFS_DTYCYC_REG);
-	iowrite32(value &= |= (dtycyc << OFS_DC_B_FIELD), base+OFS_DTYCYC_REG);
-}
-uint16_t getDutyCycleB()
-{
-	unsigned int value = ioread32(base+OFS_DTYCYC_REG);
-	return (value >> OFS_DC_B_FIELD) & 0xFFFF);
-}
 
 //-----------------------------------------------------------------------------
 // Kernel Objects
@@ -274,7 +178,7 @@ static int __init initialize_module(void)
     printk(KERN_INFO "WG driver: starting\n");
 
     // Create wavegen directory under /sys/kernel
-    kobj = kobject_create_and_add("wavegen", NULL); //kernel_kobj);
+    kobj = kobject_create_and_add("wavegen", kernel_kobj); //kernel_kobj);
     if (!kobj)
     {
         printk(KERN_ALERT "WG driver: failed to create and add kobj\n");
@@ -293,8 +197,8 @@ static int __init initialize_module(void)
         return result;
 	*/
     // Physical to virtual memory map to access gpio registers
-    base = (unsigned int*)ioremap(AXI4_LITE_BASE + QE_BASE_OFFSET,
-                                          QE_SPAN_IN_BYTES);
+    base = (unsigned int*)ioremap(AXI4_LITE_BASE + WG_BASE_OFFSET,
+                                          SPAN_IN_BYTES);
     if (base == NULL)
         return -ENODEV;
 
