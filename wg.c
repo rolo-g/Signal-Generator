@@ -63,7 +63,8 @@ int main(int argc, char* argv[])
     {
         wgOpen();
 
-        // add custom debug code here
+        setRun(atoi(argv[2]), FIELD_A);
+        setRun(atoi(argv[3]), FIELD_B);
     }
 
     else if (argc == 4)
