@@ -105,8 +105,11 @@ int main(int argc, char* argv[])
 
             if (field != FIELD_ERR)
             {
+                printf("This function does not work\n");
+                /*
                 int16_t cycles = atoi(argv[3]);
                 setCycles(cycles, field);
+                */
             }
             else
                 printf("Error: could not select A or B\n");
@@ -127,8 +130,11 @@ int main(int argc, char* argv[])
 
             if (field != FIELD_ERR)
             {
+                printf("This function does not work\n");
+                /*
                 if (!strcmp(argv[2], "continuous"))
                     setCycles((int16_t)-1, field);
+                */
             }        
         }
 
@@ -209,9 +215,8 @@ int main(int argc, char* argv[])
                 setMode(MODE_SAW, field);
 
                 uint32_t frequency = atoi(argv[3]);
-                if (frequency >= 1) // && frequency <= 2500)
+                if (frequency >= 1)
                 {
-                    // printf("Frequency: %d\n", frequency);   // REMOVE FOR FINAL
                     if (field == FIELD_A)
                         setFreqA(frequency);
                     else
@@ -227,9 +232,8 @@ int main(int argc, char* argv[])
                 }
 
                 uint16_t amplitude = atof(argv[4]) * 10;
-                if (amplitude >= 0) // && amplitude <= 2500)
+                if (amplitude >= 0)
                 {
-                    // printf("Amplitude: %d\n", amplitude);   // REMOVE FOR FINAL
                     setAmplitude(amplitude, field);
                 }
                 else
@@ -240,8 +244,8 @@ int main(int argc, char* argv[])
 
                 if (argc >= 6)
                 {
-                    int16_t offset = atof(argv[5]) * 10000;
-                    if (offset >= -25000 && offset <= 25000)
+                    int16_t offset = atof(argv[5]) * 25000;
+                    if (offset >= -62500 && offset <= 62500)
                     {
                         // printf("Offset: %d\n", offset);     // REMOVE FOR FINAL
                         setOffset(offset, field);
@@ -268,9 +272,8 @@ int main(int argc, char* argv[])
                 setMode(MODE_TRI, field);
 
                 uint32_t frequency = atoi(argv[3]);
-                if (frequency >= 1) // && frequency <= 2500)
+                if (frequency >= 1)
                 {
-                    // printf("Frequency: %d\n", frequency);   // REMOVE FOR FINAL
                     if (field == FIELD_A)
                         setFreqA(frequency);
                     else
@@ -286,9 +289,8 @@ int main(int argc, char* argv[])
                 }
 
                 uint16_t amplitude = atof(argv[4]) * 10;
-                if (amplitude >= 0) // && amplitude <= 2500)
+                if (amplitude >= 0)
                 {
-                    // printf("Amplitude: %d\n", amplitude);   // REMOVE FOR FINAL
                     setAmplitude(amplitude, field);
                 }
                 else
@@ -299,8 +301,8 @@ int main(int argc, char* argv[])
 
                 if (argc >= 6)
                 {
-                    int16_t offset = atof(argv[5]) * 10000;
-                    if (offset >= -25000 && offset <= 25000)
+                    int16_t offset = atof(argv[5]) * 25000;
+                    if (offset >= -62500 && offset <= 62500)
                     {
                         // printf("Offset: %d\n", offset);     // REMOVE FOR FINAL
                         setOffset(offset, field);
@@ -327,9 +329,8 @@ int main(int argc, char* argv[])
                 setMode(MODE_SQ, field);
 
                 uint32_t frequency = atoi(argv[3]);
-                if (frequency >= 1) // && frequency <= 2500)
+                if (frequency >= 1)
                 {
-                    // printf("Frequency: %d\n", frequency);   // REMOVE FOR FINAL
                     if (field == FIELD_A)
                         setFreqA(frequency);
                     else
@@ -345,9 +346,8 @@ int main(int argc, char* argv[])
                 }
 
                 uint16_t amplitude = atof(argv[4]) * 10;
-                if (amplitude >= 0) // && amplitude <= 2500)
+                if (amplitude >= 0)
                 {
-                    // printf("Amplitude: %d\n", amplitude);   // REMOVE FOR FINAL
                     setAmplitude(amplitude, field);
                 }
                 else
@@ -358,8 +358,8 @@ int main(int argc, char* argv[])
 
                 if (argc >= 6)
                 {
-                    int16_t offset = atof(argv[5]) * 10000;
-                    if (offset >= -25000 && offset <= 25000)
+                    int16_t offset = atof(argv[5]) * 25000;
+                    if (offset >= -62500 && offset <= 62500)
                     {
                         // printf("Offset: %d\n", offset);     // REMOVE FOR FINAL
                         setOffset(offset, field);
