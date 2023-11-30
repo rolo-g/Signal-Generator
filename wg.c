@@ -82,8 +82,8 @@ int main(int argc, char* argv[])
             {
                 setMode(MODE_DC, field);
 
-                int16_t offset = atof(argv[3]) * 100000;
-                if (offset >= -25000 && offset <= 25000)
+                int16_t offset = atof(argv[3]) * 25000;
+                if (offset >= -62500 && offset <= 62500)
                 {
                     // printf("Offset: %d\n", offset);     // REMOVE FOR FINAL
                     setOffset(offset, field);
