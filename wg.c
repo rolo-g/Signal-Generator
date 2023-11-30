@@ -82,8 +82,8 @@ int main(int argc, char* argv[])
             {
                 setMode(MODE_DC, field);
 
-                int16_t offset = atof(argv[3]) * 25000;
-                if (offset >= -62500 && offset <= 62500)
+                int16_t offset = atof(argv[3]) * 12500;
+                if (offset >= -31250 && offset <= 31250)
                 {
                     // printf("Offset: %d\n", offset);     // REMOVE FOR FINAL
                     setOffset(offset, field);
@@ -187,8 +187,8 @@ int main(int argc, char* argv[])
 
                 if (argc >= 6)
                 {
-                    int16_t offset = atof(argv[5]) * 25000;
-                    if (offset >= -62500 && offset <= 62500)
+                    int16_t offset = atof(argv[5]) * 12500;
+                    if (offset >= -31250 && offset <= 31250)
                     {
                         // printf("Offset: %d\n", offset);     // REMOVE FOR FINAL
                         setOffset(offset, field);
@@ -244,8 +244,8 @@ int main(int argc, char* argv[])
 
                 if (argc >= 6)
                 {
-                    int16_t offset = atof(argv[5]) * 25000;
-                    if (offset >= -62500 && offset <= 62500)
+                    int16_t offset = atof(argv[5]) * 12500;
+                    if (offset >= -31250 && offset <= 31250)
                     {
                         // printf("Offset: %d\n", offset);     // REMOVE FOR FINAL
                         setOffset(offset, field);
@@ -301,8 +301,8 @@ int main(int argc, char* argv[])
 
                 if (argc >= 6)
                 {
-                    int16_t offset = atof(argv[5]) * 25000;
-                    if (offset >= -62500 && offset <= 62500)
+                    int16_t offset = atof(argv[5]) * 12500;
+                    if (offset >= -31250 && offset <= 31250)
                     {
                         // printf("Offset: %d\n", offset);     // REMOVE FOR FINAL
                         setOffset(offset, field);
@@ -358,8 +358,8 @@ int main(int argc, char* argv[])
 
                 if (argc >= 6)
                 {
-                    int16_t offset = atof(argv[5]) * 25000;
-                    if (offset >= -62500 && offset <= 62500)
+                    int16_t offset = atof(argv[5]) * 12500;
+                    if (offset >= -31250 && offset <= 31250)
                     {
                         // printf("Offset: %d\n", offset);     // REMOVE FOR FINAL
                         setOffset(offset, field);
